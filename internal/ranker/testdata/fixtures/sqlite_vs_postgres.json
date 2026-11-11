@@ -1,0 +1,212 @@
+{
+  "query": "sqlite vs postgres performance benchmark",
+  "results": [
+    {
+      "url": "https://tableone.dev/blog/sqlite-vs-postgresql-performance",
+      "title": "SQLite vs PostgreSQL Performance An In-Depth Benchmark Analysis",
+      "content": "Feb 23, 2026 · Explore our deep dive into SQLite vs PostgreSQL performance. See real-world benchmarks on concurrency, throughput, and latency to choose the right database.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 4.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.datacamp.com/blog/sqlite-vs-postgresql-detailed-comparison",
+      "title": "SQLite vs PostgreSQL: A Detailed Comparison - DataCamp",
+      "content": "Jun 30, 2024 · Explore the strengths, use cases, and performance differences between SQLite vs PostgreSQL. Discover which database system suits your project needs.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 2.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.twilio.com/en-us/blog/sqlite-postgresql-complicated",
+      "title": "SQLite or PostgreSQL? It's Complicated! - Twilio",
+      "content": "Jun 27, 2022 · Having publicly professed my dislike of performance benchmarks, I resisted the urge to look up any comparisons online, and instead embarked on a series of experiments to accurately measure the performance of these two databases for the specific use cases of this application.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.3333333333333333,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/index.html",
+      "title": "SQLite Home Page",
+      "content": "23 de abr. de 2026 · SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine. SQLite is the most used database engine in the world.",
+      "engines": [
+        "bing"
+      ],
+      "score": 1.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://github.com/andrecasal/sqlite-vs-postgres-benchmark",
+      "title": "andrecasal/sqlite-vs-postgres-benchmark - GitHub",
+      "content": "Reproducible benchmarks comparing SQLite (WAL mode) and PostgreSQL write throughput on the same machine, same SSD, same schema. The claim \"just use Postgres\" is common advice. This repo measures whether that advice is supported by data for typical web application workloads.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.kdnuggets.com/postgres-vs-mysql-vs-sqlite-comparing-sql-performance-across-engines",
+      "title": "Postgres vs MySQL vs SQLite: Comparing SQL Performance Across Engines ...",
+      "content": "Check out a practical benchmark of three popular SQL databases using real-world analytical problems. When designing an application, choosing the right SQL database engine can have a major impact on performance. Three common options are PostgreSQL, MySQL, and SQLite.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.8,
+      "publishedDate": null
+    },
+    {
+      "url": "https://deployn.de/en/blog/db-performance/",
+      "title": "PostgreSQL vs. MariaDB vs. SQLite: A Performance Test",
+      "content": "Jun 25, 2025 · Which database is best for your application? A detailed performance benchmark comparison between PostgreSQL, MariaDB, and SQLite.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.6666666666666666,
+      "publishedDate": null
+    },
+    {
+      "url": "https://medium.com/pythonic-af/sqlite-vs-postgresql-performance-comparison-46ba1d39c9c8",
+      "title": "SQLite vs PostgreSQL Performance & Comparison - Medium",
+      "content": "Feb 21, 2026 · This benchmark doesn’t prove SQLite is “better.” It shows that architecture decisions have measurable cost. Local embedded database vs client-server database are fundamentally different models.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.5714285714285714,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/download.html",
+      "title": "SQLite Download Page",
+      "content": "The SQLite source code is maintained in three geographically-dispersed self-synchronizing Fossil repositories that are available for anonymous read-only access. Anyone can view the repository …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.5,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/about.html",
+      "title": "About SQLite",
+      "content": "13 de nov. de 2025 · About SQLite SQLite is an in-process library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. The code for SQLite is in the public …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.3333333333333333,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/docs.html",
+      "title": "SQLite Documentation",
+      "content": "Customizing And Porting SQLite → This document explains how to customize the build of SQLite and how to port SQLite to new platforms. Locking And Concurrency In SQLite Version 3 → A description of …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.25,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/quickstart.html",
+      "title": "SQLite In 5 Minutes Or Less",
+      "content": "Here is what you do to start experimenting with SQLite without having to do a lot of tedious reading and configuration: Download The Code Get a copy of the prebuilt binaries for your machine, or get a copy …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.2,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/features.html",
+      "title": "Features Of SQLite",
+      "content": "13 de nov. de 2025 · Features Of SQLite Transactions are atomic, consistent, isolated, and durable (ACID) even after system crashes and power failures. Zero-configuration - no setup or administration …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.16666666666666666,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/howitworks.html",
+      "title": "How SQLite Works",
+      "content": "31 de may. de 2025 · SQLite does no interprocess communication (IPC). When an application sends an SQL statement into SQLite (by invoking the appropriate SQLite library subroutine), SQLite interprets …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.14285714285714285,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/cli.html",
+      "title": "Command Line Shell For SQLite",
+      "content": "15 de abr. de 2026 · 1.1. SQLite command-line program versus the SQLite library The SQLite library is code that implements an SQL database engine. The \"sqlite3\" command-line program or \"CLI\" is an …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.125,
+      "publishedDate": null
+    },
+    {
+      "url": "https://blog.probirsarkar.com/database-performance-benchmark-postgresql-vs-mysql-vs-sqlite-which-is-the-fastest-ae7f02de88e0",
+      "title": "Database Performance Benchmark: PostgreSQL vs. MySQL vs. SQLite - Which ...",
+      "content": "For this benchmark, I wrote a Node.js application that tests the performance of PostgreSQL, MySQL, and SQLite. Each database is tested for insert, transaction insert, select, and delete operations.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.125,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/draft/download.html",
+      "title": "SQLite Download Page",
+      "content": "The SQLite source code is maintained in three geographically-dispersed self-synchronizing Fossil repositories that are available for anonymous read-only access. Anyone can view the repository …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "https://learncode00.blogspot.com/2025/02/database-performance-benchmark.html",
+      "title": "Database Performance Benchmark: PostgreSQL vs. MySQL vs. SQLite (2025 ...",
+      "content": "To determine the fastest database among PostgreSQL, MySQL, and SQLite, we analyze their performance across query execution, concurrency, memory usage, and disk I/O, based on recent benchmarks and expert insights.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "https://sqlite.org/whentouse.html",
+      "title": "Appropriate Uses For SQLite",
+      "content": "31 de may. de 2025 · SQLite is not directly comparable to client/server SQL database engines such as MySQL, Oracle, PostgreSQL, or SQL Server since SQLite is trying to solve a different problem. …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    },
+    {
+      "url": "https://devops-daily.com/comparisons/sqlite-vs-postgresql",
+      "title": "SQLite vs PostgreSQL: Feature Comparison, Pros/Cons, and Verdict",
+      "content": "SQLite vs PostgreSQL An honest comparison of SQLite and PostgreSQL for production workloads. Covers architecture, type systems, extensibility, concurrency, and the modern SQLite ecosystem (Litestream, LiteFS, Turso) that has expanded where SQLite makes sense.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    }
+  ]
+}

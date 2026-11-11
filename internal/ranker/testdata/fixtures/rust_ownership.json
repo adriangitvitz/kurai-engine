@@ -1,0 +1,208 @@
+{
+  "query": "rust ownership tutorial",
+  "results": [
+    {
+      "url": "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+      "title": "Understanding Ownership - The Rust Programming Language",
+      "content": "Understanding Ownership Ownership is Rust's most unique feature and has deep implications for the rest of the language. It enables Rust to make memory safety guarantees without needing a garbage collector, so it's important to understand how ownership works. In this chapter, we'll talk about ownership as well as several related features: borrowing, slices, and how Rust lays data out in ...",
+      "engines": [
+        "yahoo",
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 9.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.w3schools.com/rust/rust_ownership.php",
+      "title": "Rust Ownership - W3Schools",
+      "content": "Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, PHP, Python, Bootstrap, Java and XML.",
+      "engines": [
+        "yahoo",
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 4.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://medium.com/@a1guy/rust-ownership-borrowing-lifetimes-explained-2025-rusts-secret-sauce-b3e98634f19b",
+      "title": "Rust Ownership, Borrowing & Lifetimes Explained (2025): The ... - Medium",
+      "content": "5 de ago. de 2025 · Rust manages memory without a garbage collector - and it does so using a concept called ownership. At first, ownership might sound like an advanced concept, but it’s surprisingly simple. …",
+      "engines": [
+        "yahoo",
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 2.75,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.programiz.com/rust/ownership",
+      "title": "Rust Ownership (With Examples) - Programiz",
+      "content": "Ownership is a set of rules that ensure memory safety in Rust programs. Rust has an ownership model for memory management instead of garbage collector and manual memory management. This ownership makes Rust different from other languages and allows programs to run without memory leaks and slowness.",
+      "engines": [
+        "yahoo",
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 1.7999999999999998,
+      "publishedDate": null
+    },
+    {
+      "url": "https://8gwifi.org/tutorials/rust/ownership.jsp",
+      "title": "Rust Ownership Tutorial - Memory Safety Guide | 8gwifi.org",
+      "content": "Learn Rust ownership rules with examples. Master memory safety, move semantics, stack vs heap. Free Rust tutorial for beginners with code examples.",
+      "engines": [
+        "yahoo",
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 1.375,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=K682q8p-YHg",
+      "title": "Ownership in Rust | Rust Book - YouTube",
+      "content": "Chapter 4.1. Ownership In this chapter, we will delve into one of the most fundamental concepts in Rust: Ownership. We'll explore how Rust manages memory through ownership, the rules of ownership ...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.0,
+      "publishedDate": null
+    },
+    {
+      "url": "http://tilde.town/~netscape_navigator/",
+      "title": "Netscape Blog",
+      "content": "Ask Publishers Software ownership, despite being a once simple concept require re-evaluation after years of degradation. Below I&#39;ve outlined a list of questions to ask when evalua",
+      "engines": [
+        "wiby"
+      ],
+      "score": 1.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://onecompiler.com/tutorials/rust/ownership/ownership",
+      "title": "Ownership Rules - Rust Tutorial - OneCompiler",
+      "content": "Ownership Rules Ownership in Rust Ownership is Rust's most unique feature, enabling memory safety without a garbage collector. Understanding ownership is crucial for writing effective Rust code. The Three Rules of Ownership Each value in Rust has a single owner There can only be one owner at a time When the owner goes out of scope, the value is ...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.6190476190476191,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.ubyte.dev/tutorial/rust/ownership",
+      "title": "Rust Ownership Tutorial - Learn Ownership in Rust | uByte",
+      "content": "Learn Rust ownership step by step. Move semantics, the Copy trait, clone, and how Rust manages memory without a garbage collector. Free interactive Rust tutorial with hands-on coding exercises and instant feedback on uByte.",
+      "engines": [
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 0.5357142857142857,
+      "publishedDate": null
+    },
+    {
+      "url": "https://certidevs.com/tutorial-rust-ownership-introduccion",
+      "title": "Concepto de ownership en Rust: reglas y gestión de memoria",
+      "content": "18 de abr. de 2026 · Aprende el concepto de ownership en Rust, sus reglas básicas y cómo gestiona la memoria entre stack y heap para garantizar seguridad y eficiencia.",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.5,
+      "publishedDate": null
+    },
+    {
+      "url": "http://www.usenix.org.uk/mirrors/qmail/top.html",
+      "title": "qmail: Second most popular MTA on the Internet",
+      "content": "Nelson &#39;s checkhomeownership script will report on users who don&#39;t own their home directories or Maildirs. This is important to run before starting up qmail, because sendmail does",
+      "engines": [
+        "wiby"
+      ],
+      "score": 0.5,
+      "publishedDate": null
+    },
+    {
+      "url": "https://ryhl.io/blog/actors-with-tokio/",
+      "title": "Actors with Tokio – Alice Ryhl",
+      "content": "the actor exclusive ownership of some resource you want to share, and then let other tasks access this resource indirectly by talking to the actor. For example, if you are impleme",
+      "engines": [
+        "wiby"
+      ],
+      "score": 0.3333333333333333,
+      "publishedDate": null
+    },
+    {
+      "url": "http://www.bay12games.com/dwarves/",
+      "title": "Bay 12 Games: Dwarf Fortress",
+      "content": "longer lose their room ownership associations Stopped immigrants from losing their religions and some other affiliations Added settings to customize keyboard scroll amounts Turned",
+      "engines": [
+        "wiby"
+      ],
+      "score": 0.25,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.reenigne.org/xtserver/",
+      "title": "XT Server",
+      "content": "you claim any kind of ownership of programs I upload here? No, you keep the copyright on your programs. I will not redistribute them, but I will keep logs and copies of any progra",
+      "engines": [
+        "wiby"
+      ],
+      "score": 0.2,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PdOgATe33Cs",
+      "title": "Rust Programming Tutorial #14 – Ownership Rules - YouTube",
+      "content": "14 de ene. de 2026 · In this video (Rust Tutorial #14), we explain Rust ownership from scratch with simple examples. 🔥 What you’ll learn in this tutorial:- What ownership means...",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.14285714285714285,
+      "publishedDate": null
+    },
+    {
+      "url": "https://labex.io/es/tutorials/what-is-ownership-100392",
+      "title": "Dominando la propiedad en Rust | LabEx",
+      "content": "Explora los fundamentos del sistema de propiedad de Rust y aprende cómo gestiona la memoria para un programación segura y eficiente.",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.compilenrun.com/docs/language/rust/rust-ownership/rust-ownership-basics/",
+      "title": "Rust Ownership Basics - Compile N Run",
+      "content": "Introduction One of Rust's most distinctive features is its ownership system, which enables memory safety without needing a garbage collector. Understanding ownership is crucial for writing efficient and safe Rust code. In this tutorial, we'll explore the basic concepts of Rust's ownership model and see how it prevents common programming errors like null pointer dereferencing, double-free bugs ...",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "http://intorust.com/tutorial/ownership/",
+      "title": "Ownership - into_rust",
+      "content": "25 de sept. de 2016 · Description Ownership is the foundation for how the rest Rust of works. It is also the part of Rust that is most different from other languages. This tutorial walks through the core ideas of …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    },
+    {
+      "url": "https://codezup.com/mastering-rust-ownership-system/",
+      "title": "How to Master Rust's Ownership System: A Comprehensive Guide",
+      "content": "Learn Rust's ownership system with practical examples and expert tips. Understand how to manage memory effectively in Rust programming.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    }
+  ]
+}

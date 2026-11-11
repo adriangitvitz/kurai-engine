@@ -1,0 +1,31 @@
+services:
+  web:
+    dns:
+      - 172.20.0.100
+      - 8.8.8.8
+      - 1.1.1.1
+    depends_on:
+      kurai:
+        condition: service_healthy
+      cloudflared:
+        condition: service_started
+
+  kurai:
+    dns:
+      - 172.20.0.100
+      - 8.8.8.8
+      - 1.1.1.1
+    depends_on:
+      searxng:
+        condition: service_healthy
+      cloudflared:
+        condition: service_started
+
+  searxng:
+    dns:
+      - 172.20.0.100
+      - 8.8.8.8
+      - 1.1.1.1
+    depends_on:
+      cloudflared:
+        condition: service_started

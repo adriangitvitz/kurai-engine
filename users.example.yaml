@@ -1,0 +1,11 @@
+# Copy an entry like this into `users.yaml` for each person or agent.
+# Generate the key and its hash with:
+#
+#   docker compose exec kurai /app/kurai gen-key --user alice --name "Alice"
+#
+# The raw key is printed once on stdout. The entry to paste is printed on stderr.
+users:
+- id: alice
+  name: "Alice"
+  key_hash: 0000000000000000000000000000000000000000000000000000000000000000
+  enabled: true

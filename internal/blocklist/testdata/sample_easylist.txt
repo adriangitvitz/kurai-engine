@@ -1,0 +1,18 @@
+[Adblock Plus 2.0]
+! Title: EasyList Sample
+! Last modified: 01 Jan 2024
+
+! Comment lines start with !
+||ads.example.com^
+||tracker.net^
+||spam.io^
+||doubleclick.net^
+||adserver.com^
+
+! Path-based rules (should be skipped)
+||example.com/ads/*
+||site.com/tracking/
+
+! Complex rules (should be skipped)
+@@||good.com^
+||ads.*.doubleclick.net^

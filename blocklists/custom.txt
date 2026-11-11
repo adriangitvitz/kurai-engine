@@ -1,0 +1,49 @@
+# Custom Blocklist
+# Add domains to block here, one per line
+# Lines starting with # are comments
+
+# Non-English content (deprioritize for English searches)
+zhihu.com
+
+# Content aggregators with heavy ads
+medium.com
+
+# Low quality Q&A / content farms
+answerbag.com
+answers.com
+reference.com
+ask.com
+
+# Known spam / gaming cheats
+artificialaiming.net
+
+# Social media / non-search content
+# (reddit.com stays unblocked: it anchors the "discussion" content type —
+# see internal/ranker/content_type.go — and blocking it here hard-drops
+# results before ranking, zeroing discussion searches)
+linkedin.com
+instagram.com
+facebook.com
+quora.com
+x.com
+twitter.com
+tiktok.com
+pinterest.com
+
+# Educational platforms (user preference)
+geeksforgeeks.org
+platzi.com
+developer.mozilla.org
+mdn.io
+
+# SEO spam farms
+forbes.com/advisor
+businessinsider.com/personal-finance
+
+# Clickbait / low quality tech
+bgr.com
+digitaltrends.com/computing/deals
+
+# Paywalled content farms
+chegg.com
+coursehero.com

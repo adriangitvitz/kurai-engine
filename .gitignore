@@ -1,0 +1,53 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test coverage
+coverage.out
+*.coverprofile
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Go
+vendor/
+
+# Next.js frontend
+web/node_modules/
+web/.next/
+web/out/
+web/.env*.local
+
+# Logs
+*.log
+
+# Local secrets and per-install files
+.env
+users.yaml
+
+# Local data
+*.db
+web/test-results/
+web/playwright-report/
+
+# Internal working notes
+tasks/
+openspec/
+.claude/
+CLAUDE.md
+UI.md
+rrf.md
+privacy.md
+CRUSH_INTEGRATION.md
+docs/azure-deployment.md
+
+# Downloaded blocklists (fetched on first start)
+blocklists/cache/

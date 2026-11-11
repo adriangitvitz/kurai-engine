@@ -1,0 +1,196 @@
+use_default_settings: true
+
+general:
+  debug: false
+  instance_name: "Kurai SearXNG"
+
+search:
+  safe_search: 0
+  autocomplete: ''
+  formats:
+    - html
+    - json
+  default_timeout: 5.0
+  max_request_timeout: 8.0
+
+server:
+  secret_key: "set-by-SEARXNG_SECRET"
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 10.0
+  pool_connections: 30
+  pool_maxsize: 10
+  enable_http2: true
+  retries: 1
+  retry_on_http_error: false
+
+valkey:
+  url: false
+
+engines:
+  - name: google
+    disabled: false
+    timeout: 6.0
+
+  - name: brave
+    disabled: false
+    timeout: 5.0
+
+  - name: bing
+    disabled: true
+    timeout: 5.0
+
+  - name: duckduckgo
+    disabled: false
+    timeout: 6.0
+
+  - name: qwant
+    disabled: false
+    timeout: 6.0
+
+  - name: yahoo
+    disabled: false
+    timeout: 6.0
+
+  - name: yep
+    disabled: false
+    timeout: 6.0
+
+  - name: presearch
+    disabled: false
+    timeout: 6.0
+
+  - name: mwmbl
+    disabled: false
+    timeout: 6.0
+
+  - name: google scholar
+    disabled: true
+
+  - name: startpage
+    disabled: true
+
+  - name: github
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: stackoverflow
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: mdn
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: npm
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: pypi
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: crates.io
+    disabled: false
+    timeout: 5.0
+    categories:
+      - it
+
+  - name: wikipedia
+    disabled: false
+    timeout: 5.0
+    weight: 1.3
+    categories:
+      - general
+
+  - name: arxiv
+    disabled: false
+    timeout: 5.0
+    categories:
+      - science
+
+  - name: hackernews
+    disabled: false
+    timeout: 5.0
+    categories:
+      - news
+
+  - name: wiby
+    disabled: false
+    timeout: 4.0
+
+  - name: mojeek
+    disabled: false
+    timeout: 6.0
+
+  - name: marginalia
+    disabled: true
+
+  - name: yep
+    disabled: true
+
+  - name: semantic scholar
+    disabled: true
+
+  - name: google images
+    disabled: false
+    timeout: 6.0
+    categories:
+      - images
+
+  - name: bing images
+    disabled: false
+    timeout: 5.0
+    categories:
+      - images
+
+  - name: unsplash
+    disabled: false
+    timeout: 5.0
+    categories:
+      - images
+
+  - name: flickr
+    disabled: false
+    timeout: 5.0
+    categories:
+      - images
+
+  - name: wikicommons
+    engine: wikicommons
+    disabled: false
+    timeout: 5.0
+    categories:
+      - images
+
+  - name: google news
+    disabled: false
+    timeout: 6.0
+    categories:
+      - news
+
+  - name: bing news
+    disabled: false
+    timeout: 5.0
+    categories:
+      - news
+
+  - name: wikinews
+    disabled: false
+    timeout: 5.0
+    categories:
+      - news

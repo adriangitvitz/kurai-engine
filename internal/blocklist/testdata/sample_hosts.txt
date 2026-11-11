@@ -1,0 +1,20 @@
+# StevenBlack hosts sample
+# Title: Unified hosts
+# Last updated: 2024-01-01
+
+127.0.0.1 localhost
+127.0.0.1 localhost.localdomain
+255.255.255.255 broadcasthost
+::1 localhost
+
+# Ads and trackers
+0.0.0.0 ads.example.com
+0.0.0.0 tracker.net
+0.0.0.0 spam.io
+
+# Also blocked with 127.0.0.1
+127.0.0.1 doubleclick.net
+127.0.0.1 adserver.com
+
+# Comment
+# 0.0.0.0 commented-out.com

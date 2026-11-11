@@ -1,0 +1,28 @@
+Kurai
+Copyright 2026 The Kurai authors
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Third-party material in this repository
+---------------------------------------
+
+Files derived from SearXNG (https://github.com/searxng/searxng) are licensed
+under the GNU Affero General Public License v3.0 or later, not Apache-2.0.
+Each carries its own SPDX header:
+
+  searxng/utils_override.py
+  searxng/client_override.py
+  searxng/useragents.json
+
+They are copied into the SearXNG container image at build time and are not
+linked into the Kurai binary. Kurai talks to SearXNG over HTTP.
+
+Fonts in web/public/fonts are distributed under the SIL Open Font License 1.1:
+
+  Hanken Grotesk
+  IBM Plex Mono
+  Newsreader
+
+Blocklists are not part of this repository. Kurai downloads EasyList, the
+StevenBlack hosts list and the Tranco list at startup, each under its own
+license.

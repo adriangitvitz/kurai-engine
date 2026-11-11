@@ -1,0 +1,105 @@
+# Golden query suite for the Kurai ranking eval harness.
+#
+# Each entry has:
+#   id                    short stable identifier; matches fixtures/<id>.json
+#   query                 raw user query string
+#   intent                expected intent category (tech, academic, news, sports, general)
+#   judgments_by_domain   relevance grade per domain:
+#                           2 = highly relevant (matches expected_top_domains)
+#                           1 = on-topic, useful
+#                           0 = off-topic / spammy
+#                         Domains not listed default to 0.
+#
+# Fixtures are hand-authored synthetic SearXNG responses living in
+# fixtures/<id>.json. The golden_test.go integration test loads each query
+# + fixture, runs through the full ranking pipeline, computes nDCG@10/MRR,
+# and asserts a floor (mean nDCG@10 >= 0.55).
+#
+# To capture real SearXNG responses for these queries, run:
+#   make eval-capture
+# (TODO: add this make target once SearXNG is consistently available in CI.)
+
+queries:
+  - id: rust_ownership
+    query: "rust ownership tutorial"
+    intent: tech
+    judgments_by_domain:
+      doc.rust-lang.org: 2
+      rust-lang.github.io: 2
+      rust-book.cs.brown.edu: 2
+      ubyte.dev: 1
+      w3schools.com: 1
+      blog.frankel.ch: 1
+      blog.rust-lang.org: 1
+      stackoverflow.com: 1
+      dev.to: 1
+      youtube.com: 1
+      reddit.com: 0
+      medium.com: 0
+
+  - id: kubernetes_pod_terminating
+    query: "kubernetes pod stuck terminating"
+    intent: tech
+    judgments_by_domain:
+      stackoverflow.com: 2
+      kubernetes.io: 2
+      github.com: 2
+      kubeblocks.io: 2
+      cubeapm.com: 1
+      devops-daily.com: 1
+      supportfly.io: 1
+      stackexchange.com: 1
+      dev.to: 1
+      reddit.com: 0
+      medium.com: 0
+
+  - id: react_useeffect_cleanup
+    query: "react useEffect cleanup function"
+    intent: tech
+    judgments_by_domain:
+      react.dev: 2
+      stackoverflow.com: 2
+      legacy.reactjs.org: 2
+      blog.logrocket.com: 2
+      react.wiki: 1
+      dev.to: 1
+      blog.bitsrc.io: 1
+      geeksforgeeks.org: 1
+      medium.com: 0
+      reddit.com: 0
+
+  - id: cbt_overview
+    query: "what is cognitive behavioral therapy"
+    intent: academic
+    judgments_by_domain:
+      apa.org: 2
+      mayoclinic.org: 2
+      nih.gov: 2
+      my.clevelandclinic.org: 2
+      health.harvard.edu: 2
+      psychologytoday.com: 1
+      verywellmind.com: 1
+      reddit.com: 0
+      medium.com: 0
+
+  - id: sqlite_vs_postgres
+    query: "sqlite vs postgres performance benchmark"
+    intent: tech
+    # Real-world authoritative answers for "X vs Y benchmark" queries are
+    # rarely the official project sites - those don't publish self-comparisons.
+    # The third-party engineering blogs (datacamp, twilio, kdnuggets, deployn)
+    # are the actual gold standard. sqlite.org and postgresql.org get grade 1
+    # for being authoritative for any related deep dive.
+    judgments_by_domain:
+      sqlite.org: 2
+      postgresql.org: 2
+      datacamp.com: 2
+      twilio.com: 2
+      kdnuggets.com: 2
+      deployn.de: 1
+      tableone.dev: 1
+      stackoverflow.com: 1
+      news.ycombinator.com: 1
+      github.com: 1
+      medium.com: 0
+      reddit.com: 0

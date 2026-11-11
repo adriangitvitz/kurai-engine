@@ -1,0 +1,149 @@
+{
+  "query": "react useEffect cleanup function",
+  "results": [
+    {
+      "url": "https://react.dev/reference/react/useEffect",
+      "title": "useEffect – React",
+      "content": "After every commit with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. After your component is …The returned value is always up-to-date. React automatically re-renders …Returns forwardRef returns a React component that you can render in JSX. …React expects that the body of your component behaves like a pure function: …Props children: A function. React will call the function you pass with the current …A framework for building native apps for Android, iOS, and more using ReactTienes que pasar dos argumentos a useEffect: Una función de configuración …React Compiler automatically applies the equivalent of memo to all components, …React will compare each dependency with its previous value using the Object.is …",
+      "engines": [
+        "bing",
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 9.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://blog.logrocket.com/understanding-react-useeffect-cleanup-function/",
+      "title": "Understanding React’s useEffect cleanup function - LogRocket Blog",
+      "content": "The useEffectcleanup function helps developers clean effects that prevent unwanted behaviors, thereby optimizing application performance. However, it is important to note that the useEffectcleanup function does not only run when our component wants to unmount - it also runs right before the execution of the next scheduled effect. In fact, after our...",
+      "engines": [
+        "bing",
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 4.5,
+      "publishedDate": null
+    },
+    {
+      "url": "https://dev.to/werliton/useeffect-with-cleanup-function-in-react-what-it-is-when-to-use-it-and-why-k18",
+      "title": "`useEffect` with Cleanup Function in React: What It Is, When to Use It ...",
+      "content": "useEffect is one of the most commonly used hooks in React. It's designed to handle side effects - that is, actions that don't directly affect component rendering, but are still necessary, such as fetching data from an API, adding event listeners, handling timers, and more. But did you know that useEffect can (and sometimes should) clean up its own effects? This is done using a cleanup function ...",
+      "engines": [
+        "bing",
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 3.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://react.wiki/hooks/use-effect-cleanup/",
+      "title": "useEffect Cleanup Function Examples: Managing Side Effects - react.wiki",
+      "content": "Dec 31, 2024 · Master useEffect cleanup functions with practical examples. Learn how to prevent memory leaks, clear timers, remove event listeners, and handle subscription cleanup in React.",
+      "engines": [
+        "bing",
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 2.25,
+      "publishedDate": null
+    },
+    {
+      "url": "https://stackoverflow.com/questions/75725559/have-async-function-in-useeffect-return-the-cleanup-function-for-the-useeffect-i",
+      "title": "reactjs - Have async function in useEffect return the cleanup function ...",
+      "content": "Mar 13, 2023 · In React strict mode useEffect is called twice. Thus I want to remove the notification on cleanup and the cleanup itself heavily depends on the notification pushed so I can't define the cleanup function outside of the async function.",
+      "engines": [
+        "bing",
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.7999999999999998,
+      "publishedDate": null
+    },
+    {
+      "url": "https://medium.com/@wittcode/the-useeffect-cleanup-function-doesnt-only-run-on-umnount-963b3e857f2a",
+      "title": "The useEffect Cleanup Function Doesn’t Only Run On Umnount!",
+      "content": "Get a deep dive into how React's useEffect cleanup function works, with code examples showing when it fires on dependency changes, component unmounts, and in React 18 Strict Mode. Most ...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.6666666666666666,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.geeksforgeeks.org/reactjs/reactjs-useeffect-hook/",
+      "title": "ReactJS useEffect Hook - GeeksforGeeks",
+      "content": "Apr 10, 2026 · Cleanup Function Runs: Before the effect re-runs or the component unmounts, the cleanup function (returned from useEffect) is executed. Effect Re-runs: If dependencies changed, the effect runs again, after cleanup. Now let's see how to implement useEffect Hook in ReactJS.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.5714285714285714,
+      "publishedDate": null
+    },
+    {
+      "url": "https://blog.bitsrc.io/everything-you-need-to-know-about-useeffects-clean-up-function-in-react-dfa6bc75f4f3",
+      "title": "Cleanup Function in useEffect () Hook: All You Need to Know - Medium",
+      "content": "By using the cleanup function to cancel an active request, you can ensure that your application behaves correctly, even when requests return out of order. import { useState, useEffect } from \"react\";",
+      "engines": [
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 0.4722222222222222,
+      "publishedDate": null
+    },
+    {
+      "url": "https://learncodewithdurgesh.com/tutorials/react-handbook/react-useeffect-hook-manage-side-effects-cleanup",
+      "title": "React useEffect Hook: Manage Side Effects & Cleanup | Learn Code With ...",
+      "content": "Learn how to use the React useEffect Hook to handle side effects, perform cleanup, and manage dependency arrays for efficient and predictable component behavior",
+      "engines": [
+        "duckduckgo",
+        "bing"
+      ],
+      "score": 0.4222222222222222,
+      "publishedDate": null
+    },
+    {
+      "url": "https://medium.com/@sourabhmourya7/understanding-the-useeffect-cleanup-function-in-react-7-real-time-examples-bd8bbffbc8c4",
+      "title": "Understanding the useEffect Cleanup Function in React: …",
+      "content": "17 de jun. de 2024 · This is where the cleanup function comes in. In this article, we’ll explore how the useEffect cleanup function works, with seven real-time …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.16666666666666666,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.c-sharpcorner.com/article/preventing-memory-leaks-in-react-with-useeffect-hooks/",
+      "title": "Preventing Memory Leaks in React with useEffect Hooks",
+      "content": "23 de sept. de 2025 · Prevent React memory leaks by mastering useEffect cleanup! Learn to properly manage timers, event listeners, async requests, and WebSocket connections within your functional …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.14285714285714285,
+      "publishedDate": null
+    },
+    {
+      "url": "https://smartcodingtips.com/react/use-effect-cleanup",
+      "title": "Cleanup in React useEffect Hook | SmartCodingTips",
+      "content": "In React, cleanup functions inside useEffect() help prevent memory leaks by removing subscriptions, timers, or listeners when a component unmounts or re-renders.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.125,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.w3schools.com/react/react_useeffect.asp",
+      "title": "React useEffect - W3Schools",
+      "content": "Effect Cleanup Some effects require cleanup to reduce memory leaks. Timeouts, subscriptions, event listeners, and other effects that are no longer needed should be disposed. We do this by including a …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    }
+  ]
+}

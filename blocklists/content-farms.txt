@@ -1,0 +1,20 @@
+# Content Farm Domains
+# These domains are known for low-quality, SEO-optimized content
+# One domain per line, comments start with #
+
+# General content farms
+about.com
+ehow.com
+examiner.com
+howstuffworks.com
+lifehack.org
+thoughtco.com
+wikihow.com
+
+# Clickbait / listicle sites
+buzzfeed.com
+businessinsider.com
+thebalance.com
+
+# Sites with aggressive affiliate/advisor content
+forbes.com

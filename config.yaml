@@ -1,0 +1,262 @@
+searxng:
+  url: "http://searxng:8080"
+  timeout: 30s  # Increased to allow SearXNG to query multiple engines
+
+server:
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+  cache_ttl: 5m
+  page_size: 20
+  prefetch_pages: 3
+
+mcp:
+  enabled: true
+  # The MCP notification stream (GET /mcp) carries no data in a normal session,
+  # and clients tear down a transport that stays silent (Claude Code cuts at
+  # ~6m). This ping proves liveness. Keep it comfortably below the client's
+  # idle window; 0 disables it.
+  keepalive: 30s
+  # Close sessions idle for this long. 0 means never, which grows the
+  # transport's session map until restart.
+  session_timeout: 30m
+
+ranking:
+  weights:
+    title_match: 20
+    url_match: 10
+    engine_agreement: 5
+    tranco_top_10k: 15
+    tranco_top_100k: 10
+    tranco_top_1m: 5
+    freshness: 5
+  penalties:
+    blocklist: -50
+    content_farm: -30
+    excessive_params: -10
+    param_threshold: 5
+  authority:
+    # Technical/Programming
+    official_docs: 25
+    code_repository: 15
+    developer_qa: 12
+    quality_blog: 8
+    # Academic/Research
+    paper_archive: 25
+    academic_publisher: 20
+    wikipedia: 15
+    # News/Current Events
+    major_news: 15
+    quality_news: 12
+    # Query-domain matching (e.g., "arxiv" in query boosts arxiv.org)
+    query_domain_match: 30
+  snippet:
+    partial_match_max: 20
+    term_frequency_max: 15
+    proximity_bonus: 5
+    code_detection_bonus: 10
+    low_quality_penalty: -10
+    high_quality_bonus: 8
+  url_structure:
+    documentation_path: 10
+    github_code: 8
+    github_issue: 6
+    aggregator_penalty: -15
+
+  # Reciprocal Rank Fusion scoring (research-backed ranking algorithm)
+  rrf:
+    enabled: true
+    k: 60  # Smoothing constant (standard value from Cormack et al., 2009)
+    default_rank: 1000  # Rank for missing signals
+    signal_weights:
+      searxng_position: 1.0   # Original SearXNG rank
+      text_relevance: 1.8     # Combined title + snippet analysis (strongest query-match signal)
+      domain_alignment: 0.8   # Query-result domain match
+      tranco_authority: 0.5   # Tranco popularity rank
+      engine_agreement: 0.6   # Multiple engines agree
+
+  # Intent-result alignment scoring
+  # Drop candidates that share no substantive term with the query, before
+  # scoring. Ranking is relative - every signal boosts or penalizes - so when
+  # an upstream engine answers with unrelated filler, the least-bad noise
+  # still reaches rank 1. Observed live: with most engines suspended, Bing
+  # answered "kubernetes operator pattern" with celebrity news, then Chinese
+  # Q&A sites, then MSFT stock quotes, while mwmbl answered it correctly.
+  relevance_floor:
+    enabled: true
+    # Fraction of substantive query terms a result must contain.
+    # 0 = "at least one", the conservative setting: drops only zero-overlap
+    # results. Raise it against the golden eval
+    # (go test ./internal/ranker/ -run TestGolden -v), not by feel.
+    min_coverage: 0
+
+  alignment:
+    max_boost: 0.5        # Max multiplier for perfect alignment (50% boost)
+    mismatch_penalty: 0.2 # Penalty for domain mismatch (20% reduction)
+    min_confidence: 0.3   # Min confidence to apply boost
+
+blocklists:
+  easylist: true
+  stevenblack: true
+  tranco: true
+  custom: "./blocklists/custom.txt"
+  content_farms: "./blocklists/content-farms.txt"
+  cache_path: "./blocklists/cache"
+  mode: "cache-first"  # online, offline, cache-first
+  refresh_hours: 24
+
+# Result-liveness probe: a fast header-only GET of the top-N results that drops
+# confidently-dead links (DNS/connection failures, 404/410, 5xx) before
+# returning. Verdicts are cached by canonical URL. Disable with enabled: false
+# (or env KURAI_PROBE_ENABLED=false); annotate-without-dropping via
+# drop_unreachable: false (or KURAI_PROBE_DROP_UNREACHABLE=false).
+probe:
+  enabled: true
+  top_n: 20
+  timeout: 2s
+  concurrency: 12
+  cache_ttl: 15m
+  drop_unreachable: true
+  allow_private_networks: false
+
+# Privacy settings
+privacy:
+  doh:
+    enabled: true
+    resolver_url: "https://1.1.1.1/dns-query"
+
+# Engine selection by category
+engine_selection:
+  enabled: true
+  min_engines: 3
+  max_engines: 8
+  # Empty on purpose: an always_include entry is prioritized but still costs a
+  # slot out of max_engines, and google answers this deployment with a CAPTCHA.
+  # It stays in the category mappings below, where health gating applies.
+  always_include: []
+  category_mappings:
+    tech:
+      - google
+      - brave
+      - github
+      - stackoverflow
+      - mdn
+      - npm
+      - pypi
+    academic:
+      - google
+      - brave
+      - arxiv
+      - wikipedia
+    news:
+      - google
+      - brave
+      - bing
+      - hackernews
+      - google news
+      - bing news
+    sports:
+      - google
+      - brave
+      - bing
+    images:
+      - google images
+      - bing images
+      - unsplash
+      - flickr
+      - wikimedia commons
+    general:
+      - google
+      - brave
+      - bing
+      - duckduckgo
+      - wikipedia
+  health_monitoring:
+    enabled: true
+    failure_threshold: 3
+    success_threshold: 2
+    latency_window: 10
+    max_latency: 10s
+    recovery_delay: 60s
+
+# Image search settings
+images:
+  enabled: true
+  default_safesearch: 1  # 0=off, 1=moderate, 2=strict
+  page_size: 30
+  cache_ttl: 1h
+  relevance_weight: 0.5
+  quality_weight: 0.3
+  authority_weight: 0.2
+
+# News search settings
+news:
+  enabled: true
+  default_time_range: week  # day, week, month
+  enable_clustering: true
+  enable_trending: true
+  page_size: 20
+  cache_ttl: 5m
+  trending_cache_ttl: 2m
+  recency_weight: 0.4
+  credibility_weight: 0.35
+  relevance_weight: 0.25
+  cluster_similarity: 0.6
+
+# Query analysis settings
+query_analysis:
+  entity_recognition: true
+  query_type_classify: true
+  multi_intent: true
+  synonym_expansion: true
+  acronym_expansion: true
+  max_synonym_expand: 3
+
+# Result diversity settings
+diversity:
+  enabled: true
+  max_per_domain: 3
+  penalty_per_extra: 0.15
+  excluded_domains:
+    - github.com
+    - stackoverflow.com
+  enable_for_news: true
+  news_max_per_source: 2
+
+# Data file paths
+data_paths:
+  entities_file: "./data/entities.yaml"
+  synonyms_file: "./data/synonyms.yaml"
+  acronyms_file: "./data/acronyms.yaml"
+
+# Instant answers (search-instant-answers change). The master enable is the
+# no-deploy rollback lever; per-class enables remove a single card class.
+# Base URLs are the self-hosting escape hatch for both providers.
+# NOTE: Open-Meteo's free tier is NON-COMMERCIAL only (CC-BY 4.0 attribution,
+# rendered on the weather card). Commercializing a deployment requires a paid
+# plan or a self-hosted endpoint here (open-meteo.com/en/terms).
+answers:
+  enabled: true
+  currency:
+    enabled: true
+    base_url: "https://api.frankfurter.dev"
+    timeout: 3s
+  weather:
+    enabled: true
+    geocoding_url: "https://geocoding-api.open-meteo.com"
+    forecast_url: "https://api.open-meteo.com"
+    timeout: 3s
+  infobox:
+    enabled: true
+
+# Saved board persistence (persist-bookmarks change). `enabled: false` unmounts
+# the /bookmarks endpoints with no deploy and hides the board in the web UI.
+# `path` lives on the bookmark-data Docker volume so the board survives
+# rebuilds; override with KURAI_BOOKMARKS_PATH.
+#
+# PRIVACY: each bookmark stores the search query that produced it — the only
+# search history kurai persists. It stays on this machine, is deleted with its
+# bookmark, and disabling this section stops it entirely.
+bookmarks:
+  enabled: true
+  path: "/app/data/bookmarks.db"

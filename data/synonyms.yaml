@@ -1,0 +1,306 @@
+programming:
+  error:
+    - exception
+    - bug
+    - issue
+    - fault
+    - defect
+  exception:
+    - error
+    - throw
+    - catch
+    - try
+  debug:
+    - troubleshoot
+    - diagnose
+    - fix
+    - trace
+  crash:
+    - segfault
+    - panic
+    - abort
+    - core dump
+  fix:
+    - resolve
+    - patch
+    - repair
+    - correct
+
+  function:
+    - method
+    - procedure
+    - subroutine
+    - routine
+  variable:
+    - var
+    - field
+    - property
+    - attribute
+  class:
+    - object
+    - type
+    - struct
+    - entity
+  interface:
+    - contract
+    - protocol
+    - trait
+    - abstract
+  module:
+    - package
+    - library
+    - lib
+    - crate
+
+  create:
+    - make
+    - initialize
+    - instantiate
+    - new
+  delete:
+    - remove
+    - drop
+    - destroy
+    - unlink
+  update:
+    - modify
+    - change
+    - alter
+    - edit
+  read:
+    - get
+    - fetch
+    - retrieve
+    - load
+
+  api:
+    - endpoint
+    - interface
+    - service
+  database:
+    - db
+    - datastore
+    - storage
+  server:
+    - backend
+    - service
+    - daemon
+  client:
+    - frontend
+    - consumer
+    - app
+
+  slow:
+    - performance
+    - latency
+    - lag
+    - bottleneck
+  fast:
+    - quick
+    - optimized
+    - efficient
+    - performant
+  memory:
+    - ram
+    - heap
+    - allocation
+    - gc
+
+  test:
+    - unit test
+    - spec
+    - assertion
+    - verification
+  mock:
+    - stub
+    - fake
+    - spy
+    - double
+
+web:
+  request:
+    - req
+    - call
+    - fetch
+  response:
+    - res
+    - reply
+    - return
+  header:
+    - headers
+    - http header
+  cookie:
+    - session
+    - token
+
+  authentication:
+    - auth
+    - login
+    - signin
+    - sign in
+  authorization:
+    - authz
+    - permission
+    - access control
+  password:
+    - credential
+    - secret
+    - passphrase
+  encrypt:
+    - cipher
+    - encode
+    - secure
+
+  component:
+    - widget
+    - element
+    - ui element
+  render:
+    - display
+    - draw
+    - paint
+  style:
+    - css
+    - stylesheet
+    - theme
+  animation:
+    - transition
+    - motion
+    - effect
+
+devops:
+  deploy:
+    - ship
+    - release
+    - rollout
+    - publish
+  container:
+    - docker
+    - pod
+    - image
+  cluster:
+    - swarm
+    - fleet
+    - group
+
+  build:
+    - compile
+    - assemble
+    - package
+  pipeline:
+    - workflow
+    - ci
+    - automation
+
+  log:
+    - logging
+    - trace
+    - audit
+  metric:
+    - measurement
+    - stat
+    - gauge
+  alert:
+    - notification
+    - alarm
+    - warning
+
+data:
+  json:
+    - object
+    - dict
+    - map
+  array:
+    - list
+    - slice
+    - collection
+  string:
+    - text
+    - str
+    - varchar
+
+  query:
+    - search
+    - find
+    - lookup
+    - select
+  filter:
+    - where
+    - condition
+    - predicate
+  sort:
+    - order
+    - rank
+    - arrange
+  group:
+    - aggregate
+    - collect
+    - bucket
+
+academic:
+  paper:
+    - article
+    - publication
+    - study
+    - research
+  citation:
+    - reference
+    - cite
+    - bibliography
+  abstract:
+    - summary
+    - overview
+    - synopsis
+
+  correlation:
+    - relationship
+    - association
+    - connection
+  regression:
+    - prediction
+    - model
+    - fit
+  significance:
+    - p-value
+    - statistical
+    - confidence
+
+  model:
+    - network
+    - algorithm
+    - architecture
+  training:
+    - learning
+    - fitting
+    - optimization
+  inference:
+    - prediction
+    - evaluation
+    - forward pass
+
+news:
+  announcement:
+    - release
+    - launch
+    - unveil
+  acquisition:
+    - merger
+    - buyout
+    - takeover
+  lawsuit:
+    - legal action
+    - sue
+    - litigation
+
+  layoff:
+    - downsizing
+    - job cuts
+    - redundancy
+  funding:
+    - investment
+    - raise
+    - financing
+  ipo:
+    - public offering
+    - listing
+    - going public

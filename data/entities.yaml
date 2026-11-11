@@ -1,0 +1,279 @@
+products:
+  - name: PostgreSQL
+    variants: [postgres, postgresql, pg]
+  - name: MySQL
+    variants: [mysql, mariadb]
+  - name: MongoDB
+    variants: [mongodb, mongo]
+  - name: Redis
+    variants: [redis]
+  - name: Elasticsearch
+    variants: [elasticsearch, elastic, es]
+  - name: SQLite
+    variants: [sqlite, sqlite3]
+  - name: AWS
+    variants: [aws, amazon web services, amazon]
+  - name: Google Cloud
+    variants: [gcp, google cloud, google cloud platform]
+  - name: Azure
+    variants: [azure, microsoft azure]
+  - name: Vercel
+    variants: [vercel]
+  - name: Netlify
+    variants: [netlify]
+  - name: Heroku
+    variants: [heroku]
+  - name: DigitalOcean
+    variants: [digitalocean, do]
+  - name: Docker
+    variants: [docker, dockerfile, docker-compose]
+  - name: Kubernetes
+    variants: [kubernetes, k8s, kubectl, kube]
+  - name: Terraform
+    variants: [terraform, tf]
+  - name: Ansible
+    variants: [ansible]
+  - name: Nginx
+    variants: [nginx]
+  - name: Apache
+    variants: [apache, httpd]
+  - name: Caddy
+    variants: [caddy]
+  - name: Kafka
+    variants: [kafka, apache kafka]
+  - name: RabbitMQ
+    variants: [rabbitmq, rabbit]
+  - name: NATS
+    variants: [nats, nats.io]
+  - name: VS Code
+    variants: [vscode, vs code, visual studio code]
+  - name: Vim
+    variants: [vim, neovim, nvim]
+  - name: JetBrains
+    variants: [jetbrains, intellij, pycharm, goland, webstorm]
+  - name: OpenAI
+    variants: [openai, gpt, chatgpt, gpt-4, gpt-3]
+  - name: Anthropic
+    variants: [anthropic, claude]
+  - name: Hugging Face
+    variants: [huggingface, hugging face, transformers]
+  - name: TensorFlow
+    variants: [tensorflow, tf]
+  - name: PyTorch
+    variants: [pytorch, torch]
+  - name: Chrome
+    variants: [chrome, chromium, google chrome]
+  - name: Firefox
+    variants: [firefox, mozilla firefox]
+  - name: Safari
+    variants: [safari, webkit]
+
+organizations:
+  - name: Google
+    variants: [google, alphabet]
+  - name: Microsoft
+    variants: [microsoft, msft]
+  - name: Apple
+    variants: [apple]
+  - name: Meta
+    variants: [meta, facebook, fb]
+  - name: Amazon
+    variants: [amazon, amzn]
+  - name: Netflix
+    variants: [netflix]
+  - name: Spotify
+    variants: [spotify]
+  - name: Uber
+    variants: [uber]
+  - name: Stripe
+    variants: [stripe]
+  - name: Cloudflare
+    variants: [cloudflare, cf]
+  - name: GitHub
+    variants: [github, gh]
+  - name: GitLab
+    variants: [gitlab]
+  - name: HashiCorp
+    variants: [hashicorp]
+  - name: Elastic
+    variants: [elastic, elasticsearch]
+  - name: Confluent
+    variants: [confluent]
+  - name: Databricks
+    variants: [databricks]
+  - name: Snowflake
+    variants: [snowflake]
+  - name: MongoDB Inc
+    variants: [mongodb]
+  - name: Red Hat
+    variants: [redhat, red hat]
+  - name: Canonical
+    variants: [canonical, ubuntu]
+  - name: NVIDIA
+    variants: [nvidia]
+  - name: AMD
+    variants: [amd]
+  - name: Intel
+    variants: [intel]
+  - name: Twitter/X
+    variants: [twitter, x]
+  - name: LinkedIn
+    variants: [linkedin]
+
+languages:
+  - name: Go
+    variants: [go, golang]
+  - name: Python
+    variants: [python, py, python3]
+  - name: JavaScript
+    variants: [javascript, js, ecmascript, es6, es2015]
+  - name: TypeScript
+    variants: [typescript, ts]
+  - name: Rust
+    variants: [rust, rustlang]
+  - name: Java
+    variants: [java, jdk, jvm]
+  - name: Kotlin
+    variants: [kotlin]
+  - name: Swift
+    variants: [swift]
+  - name: C
+    variants: [c]
+  - name: C++
+    variants: [c++, cpp, cxx]
+  - name: C#
+    variants: [c#, csharp, dotnet, .net]
+  - name: Ruby
+    variants: [ruby, rb]
+  - name: PHP
+    variants: [php]
+  - name: Scala
+    variants: [scala]
+  - name: Elixir
+    variants: [elixir]
+  - name: Erlang
+    variants: [erlang]
+  - name: Haskell
+    variants: [haskell]
+  - name: Clojure
+    variants: [clojure, clj]
+  - name: Lua
+    variants: [lua]
+  - name: R
+    variants: [r, rlang]
+  - name: Julia
+    variants: [julia]
+  - name: Dart
+    variants: [dart]
+  - name: Zig
+    variants: [zig]
+  - name: Nim
+    variants: [nim]
+  - name: HTML
+    variants: [html, html5]
+  - name: CSS
+    variants: [css, css3]
+  - name: SQL
+    variants: [sql, plsql, tsql]
+  - name: Bash
+    variants: [bash, sh, shell, zsh]
+  - name: PowerShell
+    variants: [powershell, pwsh, ps1]
+
+frameworks:
+  - name: React
+    variants: [react, reactjs, react.js]
+  - name: Vue.js
+    variants: [vue, vuejs, vue.js, vue3]
+  - name: Angular
+    variants: [angular, angularjs]
+  - name: Svelte
+    variants: [svelte, sveltekit]
+  - name: Next.js
+    variants: [nextjs, next.js, next]
+  - name: Nuxt
+    variants: [nuxt, nuxtjs, nuxt.js]
+  - name: Remix
+    variants: [remix]
+  - name: Express
+    variants: [express, expressjs, express.js]
+  - name: Fastify
+    variants: [fastify]
+  - name: Nest.js
+    variants: [nestjs, nest.js, nest]
+  - name: Node.js
+    variants: [nodejs, node.js, node]
+  - name: Deno
+    variants: [deno]
+  - name: Bun
+    variants: [bun]
+  - name: Django
+    variants: [django]
+  - name: Flask
+    variants: [flask]
+  - name: FastAPI
+    variants: [fastapi]
+  - name: Starlette
+    variants: [starlette]
+  - name: SQLAlchemy
+    variants: [sqlalchemy]
+  - name: Celery
+    variants: [celery]
+  - name: Pandas
+    variants: [pandas]
+  - name: NumPy
+    variants: [numpy]
+  - name: Gin
+    variants: [gin, gin-gonic]
+  - name: Echo
+    variants: [echo]
+  - name: Fiber
+    variants: [fiber, gofiber]
+  - name: Chi
+    variants: [chi, go-chi]
+  - name: GORM
+    variants: [gorm]
+  - name: Spring
+    variants: [spring, springboot, spring boot]
+  - name: Ktor
+    variants: [ktor]
+  - name: Quarkus
+    variants: [quarkus]
+  - name: Micronaut
+    variants: [micronaut]
+  - name: Rails
+    variants: [rails, ruby on rails, ror]
+  - name: Sinatra
+    variants: [sinatra]
+  - name: Actix
+    variants: [actix, actix-web]
+  - name: Axum
+    variants: [axum]
+  - name: Rocket
+    variants: [rocket]
+  - name: Tokio
+    variants: [tokio]
+  - name: React Native
+    variants: [react native, reactnative, rn]
+  - name: Flutter
+    variants: [flutter]
+  - name: SwiftUI
+    variants: [swiftui]
+  - name: Jetpack Compose
+    variants: [jetpack compose, compose]
+  - name: Tailwind CSS
+    variants: [tailwind, tailwindcss]
+  - name: Bootstrap
+    variants: [bootstrap]
+  - name: Material UI
+    variants: [mui, material ui, material-ui]
+  - name: Jest
+    variants: [jest]
+  - name: Vitest
+    variants: [vitest]
+  - name: Pytest
+    variants: [pytest]
+  - name: Cypress
+    variants: [cypress]
+  - name: Playwright
+    variants: [playwright]

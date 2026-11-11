@@ -1,0 +1,202 @@
+{
+  "query": "kubernetes pod stuck terminating",
+  "results": [
+    {
+      "url": "https://oneuptime.com/blog/post/2026-02-09-debug-pods-terminating-force-delete/view",
+      "title": "How to Debug Pods Stuck in Terminating State and Force Delete Them",
+      "content": "Feb 9, 2026 · Learn how to diagnose and fix pods stuck in Terminating state in Kubernetes, including graceful troubleshooting and force deletion techniques when necessary to recover cluster operations.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 4.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://stackoverflow.com/questions/35453792/pods-stuck-in-terminating-status",
+      "title": "kubernetes - Pods stuck in Terminating status - Stack Overflow",
+      "content": "I tried to delete a ReplicationController with 12 pods and I could see that some of the pods are stuck in Terminating status. My Kubernetes cluster consists of one control plane node and three wo...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.6666666666666665,
+      "publishedDate": null
+    },
+    {
+      "url": "https://dev.to/imjoseangel/kubernetes-pods-stuck-in-terminating-a-resolution-guide-2jh3",
+      "title": "Kubernetes Pods Stuck in Terminating: A Resolution Guide",
+      "content": "There are multiple reasons why the Kubernetes Scheduler can evict a healthy container. For example, the execution of Pods with higher priority, the drain of a node during a version update, an auto-scaling process, a resource bin-packing, or a simple kubectl deletecommand. Kubernetes provides graceful termination for not needed Pods with Container L...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 1.6666666666666665,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/639690506",
+      "title": "一文了解 Kubernetes 是什么？ - 知乎",
+      "content": "Kubernetes入门 - 全面入门指南 随着大多数企业和IT专业人员如今都在使用容器技术，Kubernetes是所有可用容器中最受欢迎的。 在本文中，我们将介绍Kubernetes，即K8s。 这是我们为初学者准备的完 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 1.0,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.kubeblocks.io/blog/how-to-fix-pod-stuck-in-terminating-status",
+      "title": "How to Fix Pods Stuck in Terminating Status in Kubernetes?",
+      "content": "A step-by-step guide to troubleshooting and fixing Kubernetes Pods stuck in the Terminating status. This deep dive reproduces the common issue, analyzes kubelet logs and volume mount problems, and uncovers a bug in the Hostpath CSI Driver as the root cause.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.9,
+      "publishedDate": null
+    },
+    {
+      "url": "https://cubeapm.com/blog/kubernetes-pod-stuck-terminating/",
+      "title": "Kubernetes Pod Stuck Terminating: 5 Common Causes, Fixes & Monitoring ...",
+      "content": "Sep 28, 2025 · Learn about Kubernetes Pod Stuck Terminating issues, why Pods fail to shut down, and the most common causes. Follow step-by-step fixes and see how CubeAPM monitors Pod termination events, correlates metrics with logs, and prevents rollout delays with smart alerts.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.8333333333333333,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.w3tutorials.net/blog/how-do-i-force-delete-kubernetes-pods/",
+      "title": "How to Force Delete Kubernetes Pods Stuck in Terminating Status: Step ...",
+      "content": "Kubernetes (K8s) has revolutionized container orchestration, but even the most robust systems encounter hiccups. One common issue Kubernetes administrators face is **pods stuck in the \"Terminating\" status**. A pod in this state refuses to shut down, cluttering your cluster, blocking resource reclamation, and potentially disrupting deployments. In this guide, we'll demystify why pods get ...",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.7333333333333334,
+      "publishedDate": null
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/azure/azure-kubernetes/storage/pods-namespaces-terminating-state",
+      "title": "Troubleshoot pods and namespaces stuck in the Terminating state",
+      "content": "Mar 26, 2026 · Pods and namespaces stuck in the Terminating state in AKS? Follow this guide to identify blockers, force deletion, and restore normal cluster cleanup.",
+      "engines": [
+        "duckduckgo",
+        "yahoo"
+      ],
+      "score": 0.5714285714285714,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/585694262",
+      "title": "Kubernetes入门：Pod、节点、容器和集群都是什么？ - 知乎",
+      "content": "Kubernetes不依赖于底层某一种具体的规则去实现容器技术，而是通过CRI这个抽象层操作容器，这样就会需要Pod这样一个东西，Pod内部再管理多个业务上紧密相关的用户业务容器，就会更有利用业务 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.5,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/387706026",
+      "title": "Kubernetes到底能做什么？ - 知乎",
+      "content": "5.2 为什么 Kubernetes 里会有很多控制器 Kubernetes 没有把所有自动化逻辑塞进一个巨大的“总控制器”里，而是把不同职责拆成多个相对独立的控制器。 例如： Deployment 控制器负责把发布层面的目标 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.3333333333333333,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/540096557",
+      "title": "有什么开源的Kubernetes管理平台吗? - 知乎",
+      "content": "Rancher支持主流Kubernetes发行版 Rancher为包括RKE、k3s、微软云AKS、亚马逊EKS、谷歌云GKE、阿里云ACK、腾讯云TKE、百度智能云CCE和华为云CCE在内的所有认证发行版提供了直观极简且具 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.25,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/351710465",
+      "title": "大家都是在哪儿练习kubernetes集群的？ - 知乎",
+      "content": "No.8 Kubernetes Handbook （Kubernetes指南）： Kubernetes 发展非常迅速，已经成为容器编排领域的领导者。Kubernetes 的中文资料也非常丰富，但系统化和紧跟社区更新的则就比较少见了。 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.2,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/410046215",
+      "title": "kubernetes应该怎么读？ - 知乎",
+      "content": "kubernetes应该怎么读？1.枯波耐踢死2.枯波耐次3.Q波耐踢死4.Q波耐次",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.16666666666666666,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/630911917",
+      "title": "怎么解决Kubernetes在生产中使用过于复杂的问题？ - 知乎",
+      "content": "在很多情况下，你可能会发现Kubernetes中的应用程序没有正确地部署，或者没有正常地工作。今天这篇文章就提供了如何去快速解决这类故障以及一些技巧。 在阅读了这篇文章之后，你还将深入了 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.14285714285714285,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/53751176",
+      "title": "Kubernetes和Mesos有啥区别，我该使用哪个好? - 知乎",
+      "content": "Mesos和Kubernetes使用哪个好，关键还是要看业务需求，当然是适合业务需求的最好。 两者参数都都挺多的，针对于容器管理，两者也都挺灵活，一般都可以满足，不过学习成本也会相对提高。 两者对 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.125,
+      "publishedDate": null
+    },
+    {
+      "url": "https://medium.com/@brahmaiahcheerla/kubernetes-pod-stuck-in-terminating-state-causes-and-fix-a0235946b588",
+      "title": "Kubernetes Pod Stuck in Terminating State - Causes and Fix",
+      "content": "Normally, Kubernetes should gracefully terminate the pod and remove it quickly. But due to certain conditions, the pod may get stuck in the terminating state. In this guide we will understand:",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.125,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/372957519",
+      "title": "如何阅读 kubernetes 源码？ - 知乎",
+      "content": "Kubernetes Handbook 开源于 2017 年 3 月并在其后不断完善，是第一本系统介绍 Kubernetes 的中文书籍。 写作本书的过程中，笔者记录了从零开始学习和使用 Kubernetes 的历程，着重于经验总结和资 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "https://kodekloud.com/blog/kubernetes-pods-stuck-in-terminating-a-resolution-guide/",
+      "title": "Kubernetes Pods Stuck in Terminating: A Resolution Guide",
+      "content": "Learn why Kubernetes pods get stuck in terminating, how to diagnose and resolve the problem, and how to prevent it from happening again.",
+      "engines": [
+        "duckduckgo"
+      ],
+      "score": 0.1111111111111111,
+      "publishedDate": null
+    },
+    {
+      "url": "https://www.zhihu.com/question/325746475",
+      "title": "kubernetes 很难用，为什么还那么流行？ - 知乎",
+      "content": "Kubernetes确实兑现了这些承诺，但没人告诉我们背后隐藏的代价。 二、崩溃边缘 2023年“黑色星期五”成了压垮我们的最后一根稻草。 即便我们拥有： 8名资深DevOps工程师 3支专职SRE团队 7*24值班 …",
+      "engines": [
+        "bing"
+      ],
+      "score": 0.1,
+      "publishedDate": null
+    }
+  ]
+}

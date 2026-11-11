@@ -1,0 +1,747 @@
+openapi: 3.1.0
+info:
+  title: Kurai HTTP API
+  version: 1.0.0
+  description: |
+    Privacy-respecting meta-search backend with content extraction. Aggregates
+    SearXNG results, applies BM25 + RRF + MMR re-ranking, and (optionally) a
+    cross-encoder reranker. Designed to be consumed by AI agents - both via
+    REST and via the MCP transport at `POST /mcp`.
+
+    All errors use a stable JSON envelope; see docs/error-codes.md for the
+    full code list.
+
+servers:
+  - url: http://localhost:8080
+    description: Local kurai
+  - url: http://kurai.orb.local:8080
+    description: OrbStack-native hostname
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        API key issued via `kurai gen-secret` and added to users.yaml.
+        Preferred for headless agents and MCP HTTP clients.
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: kurai_session
+      description: |
+        Session cookie obtained from `POST /auth`. Browser-friendly auth.
+
+  schemas:
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              description: Stable string code; switch on this, not message.
+              examples: [missing_query, invalid_url, unauthorized]
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+        request_id:
+          type: string
+
+    Pagination:
+      type: object
+      properties:
+        page:        { type: integer, minimum: 1 }
+        page_size:   { type: integer, minimum: 1 }
+        total:       { type: integer }
+        has_more:    { type: boolean }
+        next_page:   { type: integer, nullable: true }
+
+    Envelope:
+      type: object
+      properties:
+        request_id:  { type: string }
+        cached_at:   { type: string, format: date-time, nullable: true }
+        pagination:  { $ref: '#/components/schemas/Pagination' }
+
+    SearchResult:
+      type: object
+      required: [url, title, snippet, final_score]
+      properties:
+        url:             { type: string, format: uri }
+        title:           { type: string }
+        snippet:         { type: string }
+        engines:
+          type: array
+          items: { type: string }
+        original_score:  { type: number }
+        final_score:     { type: number }
+        rrf_score:       { type: number }
+        rrf_rank:
+          type: integer
+          description: 1-based position after BM25/RRF fusion, before MMR reordering.
+        final_rank:
+          type: integer
+          description: 1-based position in the displayed list, after MMR. When this differs from rrf_rank, MMR demoted the result for diversity.
+        intent_alignment:{ type: number }
+        primary_domain:  { type: string }
+        content_type:    { type: string, description: article/study/video/discussion/guide; drives the facet tabs. }
+        published_date:  { type: string, nullable: true }
+        extracted_content:
+          type: string
+          description: Page markdown, present only when the request used extract_top and this result was in the top N.
+        availability:
+          type: string
+          enum: [reachable, unreachable, unknown]
+          description: >-
+            Liveness-probe verdict (present only when the probe is enabled and
+            this result was within probe.top_n). "unreachable" means a confident
+            failure (DNS/connection error, 404/410, 5xx); "unknown" means it was
+            skipped (internal/SSRF host or a malformed URL).
+        http_status:
+          type: integer
+          description: Final HTTP status the liveness probe observed (0 on a transport error).
+
+    CompactResult:
+      type: object
+      description: >-
+        Slim agent-facing view of SearchResult (response_format=compact, the
+        MCP default). Strips badges, signal_ranks, domain_scores, and redundant
+        score fields — ~60% fewer tokens.
+      required: [url, title, snippet, score]
+      properties:
+        url:            { type: string, format: uri }
+        title:          { type: string }
+        snippet:        { type: string }
+        score:          { type: number, description: FinalScore — post-RRF, post-MMR. }
+        final_rank:     { type: integer }
+        rrf_rank:       { type: integer }
+        engines:
+          type: array
+          items: { type: string }
+        domain:         { type: string }
+        published_date: { type: string }
+        content:
+          type: string
+          description: Page markdown when extract_top covered this result.
+
+    CompactSearchResponse:
+      type: object
+      required: [query, results, meta]
+      properties:
+        query:    { type: string }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/CompactResult' }
+        answers:  { $ref: '#/components/schemas/Answers' }
+        meta:     { $ref: '#/components/schemas/SearchMeta' }
+        envelope: { $ref: '#/components/schemas/Envelope' }
+
+    # A saved source. The card fields are stored so the board renders without
+    # re-fetching; `score` is a frozen snapshot of the ranking at save time,
+    # deliberately never refreshed.
+    Bookmark:
+      type: object
+      required: [url, saved_at]
+      properties:
+        url:          { type: string, format: uri, description: The bookmark's identity within a board. }
+        title:        { type: string }
+        snippet:      { type: string }
+        domain:       { type: string }
+        content_type: { type: string }
+        meta:         { type: string }
+        score:        { type: number, description: Ranking snapshot at save time; not live. }
+        query:
+          type: string
+          description: >
+            The search that produced this bookmark. Absent for bookmarks with
+            no provenance (e.g. imported from a browser board that predates
+            it) — a legal state; no query is ever invented.
+        saved_at:     { type: string, format: date-time }
+
+    BookmarksResponse:
+      type: object
+      required: [bookmarks]
+      properties:
+        bookmarks:
+          type: array
+          description: The caller's board, most recently saved first. Empty is [] , not null.
+          items: { $ref: '#/components/schemas/Bookmark' }
+        envelope: { $ref: '#/components/schemas/Envelope' }
+
+    GroupedBookmarksResponse:
+      type: object
+      required: [groups]
+      properties:
+        groups:
+          type: array
+          description: >
+            The board grouped by originating search. Groups are ordered by
+            their most recent save; bookmarks within a group are newest-first.
+          items:
+            type: object
+            required: [bookmarks]
+            properties:
+              query:
+                type: string
+                description: >
+                  The originating search. ABSENT for the single group
+                  collecting provenance-less bookmarks — consumers distinguish
+                  it by that absence, not by a sentinel value.
+              bookmarks:
+                type: array
+                items: { $ref: '#/components/schemas/Bookmark' }
+        envelope: { $ref: '#/components/schemas/Envelope' }
+
+    # Instant-answer block. Additive: omitted entirely when no answer content
+    # exists (never empty scaffolding), in BOTH response formats. Bounded at
+    # forwarding: infobox summary ≤500 chars / ≤8 attributes / ≤3 links /
+    # ≤1 image, ≤3 corrections, ≤4096 bytes total serialized content.
+    Answers:
+      type: object
+      properties:
+        currency:    { $ref: '#/components/schemas/CurrencyAnswer' }
+        weather:     { $ref: '#/components/schemas/WeatherAnswer' }
+        infobox:     { $ref: '#/components/schemas/InfoboxAnswer' }
+        corrections:
+          type: array
+          maxItems: 3
+          items: { type: string }
+          description: Query refinement suggestions ("did you mean").
+
+    CurrencyAnswer:
+      type: object
+      description: >
+        Enriched conversion (currency-answers capability). Only complete
+        conversions are forwarded — a dateless rate exists in no response
+        format. Converted amount and rate are raw; display rounding is the
+        card layer's job.
+      required: [base, quote, amount, converted, rate, rate_date, source]
+      properties:
+        base:        { type: string, description: Resolved ISO 4217 code. }
+        quote:       { type: string, description: Resolved ISO 4217 code. }
+        amount:      { type: number }
+        converted:   { type: number }
+        rate:        { type: number }
+        rate_date:   { type: string, format: date, description: ISO 8601 rate calendar date — the as-of. }
+        source:      { type: string }
+        minor_units: { type: integer, description: Target currency's ISO 4217 minor-unit count. }
+
+    WeatherAnswer:
+      type: object
+      description: >
+        Enriched weather card (weather-answers capability). as_of is the
+        PROVIDER data timestamp (≤60 minutes old at serve time, enforced
+        server-side); timezone is the resolved place's IANA zone for
+        place-local display.
+      required: [place, temperature_c, source, as_of]
+      properties:
+        place:         { type: string, description: Qualified place name, e.g. "Springfield, Missouri, United States". }
+        country_code:  { type: string }
+        timezone:      { type: string }
+        temperature_c: { type: number }
+        condition:     { type: string }
+        forecast:
+          type: array
+          maxItems: 8
+          items:
+            type: object
+            properties:
+              date:      { type: string, format: date }
+              min_c:     { type: number }
+              max_c:     { type: number }
+              condition: { type: string }
+        source: { type: string }
+        as_of:  { type: string, format: date-time }
+
+    InfoboxAnswer:
+      type: object
+      description: >
+        Entity knowledge panel from upstream infobox data (entity-infobox
+        capability). Rendered only from upstream facts; source is the
+        machine-readable emitting engine.
+      required: [title, source]
+      properties:
+        title:   { type: string }
+        summary: { type: string, maxLength: 500 }
+        attributes:
+          type: array
+          maxItems: 8
+          items:
+            type: object
+            properties:
+              label: { type: string }
+              value: { type: string }
+        links:
+          type: array
+          maxItems: 3
+          items:
+            type: object
+            properties:
+              title: { type: string }
+              url:   { type: string, format: uri }
+        image_url: { type: string, format: uri }
+        source:    { type: string, description: Emitting engine (wikipedia, wikidata). }
+
+    SearchMeta:
+      type: object
+      properties:
+        total:               { type: integer }
+        page:                { type: integer }
+        page_size:           { type: integer }
+        total_pages:         { type: integer }
+        blocklist_filtered:  { type: integer }
+        off_topic_filtered:  { type: integer, description: 'With include_domains: results dropped for matching none of the query terms beyond the site name. Omitted when zero.' }
+        undated_filtered:    { type: integer, description: 'Results dropped by date_strict for carrying no date. Omitted when zero.' }
+        phrase_filtered:     { type: integer, description: 'Results dropped for not containing a double-quoted phrase from the query. Omitted when zero.' }
+        time_range:          { type: string, enum: [day, week, month, year], description: 'Upstream recency window derived from date_from. Omitted when none applied.' }
+        phrase_relaxed:      { type: boolean, description: 'True when no result contained the quoted phrase, so the unfiltered set was returned. Omitted when false.' }
+        processing_time_ms:  { type: integer }
+        from_cache:          { type: boolean }
+
+    SearchResponse:
+      type: object
+      required: [query, results, meta]
+      properties:
+        query:    { type: string }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/SearchResult' }
+        answers:  { $ref: '#/components/schemas/Answers' }
+        meta:     { $ref: '#/components/schemas/SearchMeta' }
+        envelope: { $ref: '#/components/schemas/Envelope' }
+
+    NewsResult:
+      type: object
+      required: [url, title]
+      properties:
+        url:             { type: string, format: uri }
+        title:           { type: string }
+        snippet:         { type: string }
+        source:          { type: string }
+        source_domain:   { type: string }
+        author:          { type: string }
+        published_date:  { type: string, format: date-time, nullable: true }
+        published_ago:   { type: string }
+        thumbnail:       { type: string, format: uri, nullable: true }
+        category:        { type: string }
+        recency_score:   { type: number }
+        credibility_score: { type: number }
+        final_score:     { type: number }
+
+    NewsResponse:
+      type: object
+      properties:
+        query:    { type: string }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/NewsResult' }
+        meta:
+          type: object
+          properties:
+            total:        { type: integer }
+            page:         { type: integer }
+            page_size:    { type: integer }
+            time_range:   { type: string }
+
+    ImageResult:
+      type: object
+      properties:
+        url:             { type: string, format: uri }
+        thumbnail_url:   { type: string, format: uri }
+        title:           { type: string }
+        alt_text:        { type: string }
+        source:          { type: string }
+        source_domain:   { type: string }
+        width:           { type: integer }
+        height:          { type: integer }
+        format:          { type: string }
+        final_score:     { type: number }
+
+    ImageResponse:
+      type: object
+      properties:
+        query:    { type: string }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/ImageResult' }
+
+    Article:
+      type: object
+      properties:
+        url:              { type: string, format: uri }
+        final_url:        { type: string, format: uri }
+        title:            { type: string }
+        byline:           { type: string }
+        published_date:   { type: string, format: date-time, nullable: true }
+        site_name:        { type: string }
+        language:         { type: string }
+        content_markdown: { type: string }
+        content_text:     { type: string }
+        excerpt:          { type: string }
+        word_count:       { type: integer }
+        favicon:          { type: string }
+        fetched_at:       { type: string, format: date-time }
+        cache_hit:        { type: boolean }
+
+    Passage:
+      type: object
+      description: A heading-delimited chunk of extracted content, BM25-scored against the focus query.
+      required: [text, score]
+      properties:
+        heading: { type: string }
+        text:    { type: string }
+        score:   { type: number }
+
+    ExtractResponse:
+      type: object
+      required: [result]
+      properties:
+        result: { $ref: '#/components/schemas/Article' }
+        passages:
+          type: array
+          description: Present when the request carried focus= — most relevant chunks first.
+          items: { $ref: '#/components/schemas/Passage' }
+
+    HealthResponse:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+        uptime: { type: string }
+
+    AuthRequest:
+      type: object
+      required: [key]
+      properties:
+        key: { type: string }
+
+    AuthResponse:
+      type: object
+      properties:
+        user_id:    { type: string }
+        name:       { type: string }
+        expires_at: { type: string, format: date-time }
+
+  responses:
+    Error:
+      description: Standard error envelope.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+
+security:
+  - bearerAuth: []
+  - sessionCookie: []
+
+paths:
+  /health:
+    get:
+      summary: Liveness probe.
+      security: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/HealthResponse' }
+
+  /auth:
+    post:
+      summary: Exchange an API key for a session cookie.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AuthRequest' }
+      responses:
+        '200':
+          description: Authenticated; sets `kurai_session` cookie.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AuthResponse' }
+        '401': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+
+  # The saved board. One resource, two representations (?group=query). The URL
+  # is the bookmark's identity, so a client deletes what it saved without
+  # round-tripping a server-generated id. Present only when bookmarks.enabled
+  # is true; the routes are unmounted (404) otherwise.
+  /bookmarks:
+    get:
+      summary: List the saved board, newest first.
+      parameters:
+        - in: query
+          name: group
+          schema: { type: string, enum: [query] }
+          description: >
+            Omit for the flat board. `group=query` returns the same collection
+            grouped by the search that produced each bookmark.
+      responses:
+        '200':
+          description: The board. Empty is an empty list, not an error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/BookmarksResponse'
+                  - $ref: '#/components/schemas/GroupedBookmarksResponse'
+        '401': { $ref: '#/components/responses/Error' }
+    post:
+      summary: Save a source to the board (idempotent upsert on url).
+      description: >
+        Saving an already-saved URL updates its card fields rather than
+        duplicating or failing, and PRESERVES the original query and saved_at —
+        the board answers "why did I first save this?". A bookmark with no
+        provenance backfills its query on re-save, since there is nothing to
+        protect.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url]
+              properties:
+                url:          { type: string, format: uri }
+                title:        { type: string }
+                snippet:      { type: string }
+                domain:       { type: string }
+                content_type: { type: string }
+                meta:         { type: string }
+                score:        { type: number }
+                query:
+                  type: string
+                  description: The search that produced this save. Optional.
+      responses:
+        '200':
+          description: The stored bookmark, including its server-assigned saved_at.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Bookmark' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+    delete:
+      summary: Delete a bookmark by url (idempotent).
+      description: >
+        Immediate and permanent — there is no soft delete or undo window.
+        Deleting an absent bookmark is success, so a retry never errors.
+      parameters:
+        - in: query
+          name: url
+          required: true
+          schema: { type: string, format: uri }
+      responses:
+        '204': { description: Deleted, or already absent. }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+
+  /search:
+    get:
+      summary: Ranked web search.
+      parameters:
+        - { in: query, name: q,             required: true,  schema: { type: string, minLength: 1 }, description: 'A "double-quoted phrase" is required in title, snippet or URL; see meta.phrase_filtered and meta.phrase_relaxed' }
+        - { in: query, name: page,          schema: { type: integer, minimum: 1, default: 1 } }
+        - { in: query, name: category,      schema: { type: string, enum: [tech, academic, news, sports, general] } }
+        - { in: query, name: debug,         schema: { type: boolean, default: false } }
+        - { in: query, name: language,      schema: { type: string, pattern: '^[a-z]{2}(-[A-Z]{2})?$' } }
+        - { in: query, name: include_domains, schema: { type: string }, description: 'Comma-separated host suffix list. Also sent upstream as site: so the engines search inside those sites.' }
+        - { in: query, name: exclude_domains, schema: { type: string }, description: 'Comma-separated host suffix list' }
+        - { in: query, name: date_from,     schema: { type: string, format: date }, description: 'Dated results older than this are dropped; a result with no engine date takes the one its snippet starts with, when present. A date within the past year also narrows the upstream fetch (meta.time_range).' }
+        - { in: query, name: date_to,       schema: { type: string, format: date } }
+        - { in: query, name: date_strict,   schema: { type: boolean, default: false }, description: 'With date_from/date_to, also drop results that carry no date. Most web results are undated.' }
+        - { in: query, name: snippet_length, schema: { type: integer, minimum: 50, maximum: 500 } }
+        - { in: query, name: limit,         schema: { type: integer, minimum: 1, maximum: 50 } }
+        - in: query
+          name: response_format
+          schema: { type: string, enum: [full, compact], default: full }
+          description: >-
+            compact strips per-result debugging metadata (badges, signal_ranks,
+            domain_scores, redundant scores) — ~60% fewer tokens. Agents should
+            prefer compact; full remains the HTTP default for backwards compat.
+        - in: query
+          name: extract_top
+          schema: { type: integer, minimum: 1, maximum: 5 }
+          description: >-
+            Fused search+extract — extract the top-N results' pages server-side
+            (parallel) and attach their markdown. Failures per page are
+            non-fatal. Values above 5 are clamped. The whole extraction wave
+            shares a global budget (extract.fused_budget, default 8s) — pages
+            still in flight when it expires ship without content.
+        - in: query
+          name: keep_unreachable
+          schema: { type: boolean }
+          description: >-
+            By default the liveness probe (when enabled) drops results that fail
+            a fast header-only GET (DNS/connection errors, 404/410, 5xx). Set
+            true to keep them: results are still annotated with `availability`
+            and `http_status`, but nothing is dropped.
+        - in: query
+          name: content_type
+          schema:
+            type: string
+            enum: [article, study, video, discussion, guide]
+          description: >-
+            Restrict results to one classified content type, paginated on its
+            own. `meta.facets` is always computed over the full set, so every
+            type's count is still returned while you page one of them. Unknown
+            values are ignored (treated as no filter).
+      responses:
+        '200':
+          description: Ranked results (CompactSearchResponse when response_format=compact).
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SearchResponse' }
+        '400': { $ref: '#/components/responses/Error' }
+        '401': { $ref: '#/components/responses/Error' }
+
+  /news:
+    get:
+      summary: Ranked news search with optional clustering.
+      parameters:
+        - { in: query, name: q,           required: true, schema: { type: string } }
+        - { in: query, name: page,        schema: { type: integer, default: 1 } }
+        - { in: query, name: page_size,   schema: { type: integer, default: 20, maximum: 100 } }
+        - { in: query, name: time_range,  schema: { type: string, enum: [day, week, month, year] } }
+        - { in: query, name: category,    schema: { type: string } }
+        - { in: query, name: cluster,     schema: { type: boolean, default: true } }
+      responses:
+        '200':
+          description: Ranked news results.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/NewsResponse' }
+
+  /news/trending:
+    get:
+      summary: Trending news clusters across categories.
+      parameters:
+        - { in: query, name: category, schema: { type: string } }
+      responses:
+        '200':
+          description: Trending clusters.
+
+  /news/feed:
+    get:
+      summary: News results as RSS or Atom feed.
+      parameters:
+        - { in: query, name: q,      required: true, schema: { type: string } }
+        - { in: query, name: format, schema: { type: string, enum: [rss, atom], default: rss } }
+      responses:
+        '200':
+          description: XML feed.
+          content:
+            application/rss+xml: {}
+            application/atom+xml: {}
+
+  /images:
+    get:
+      summary: Ranked image search.
+      parameters:
+        - { in: query, name: q,          required: true, schema: { type: string } }
+        - { in: query, name: page,       schema: { type: integer, default: 1 } }
+        - { in: query, name: page_size,  schema: { type: integer, default: 30 } }
+        - { in: query, name: safesearch, schema: { type: integer, enum: [0, 1, 2], default: 1 } }
+        - { in: query, name: size,       schema: { type: string, enum: [small, medium, large] } }
+      responses:
+        '200':
+          description: Ranked image results.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ImageResponse' }
+
+  /extract:
+    get:
+      summary: Fetch and clean a URL into main content + metadata.
+      parameters:
+        - { in: query, name: url,            required: true, schema: { type: string, format: uri } }
+        - { in: query, name: format,         schema: { type: string, enum: [markdown, text, both], default: markdown } }
+        - { in: query, name: include_images, schema: { type: boolean, default: false } }
+        - { in: query, name: include_links,  schema: { type: boolean, default: false } }
+        - { in: query, name: timeout_ms,     schema: { type: integer, minimum: 1000, maximum: 30000 } }
+        - in: query
+          name: focus
+          schema: { type: string }
+          description: >-
+            Query-focused passages — chunk the content by headings and BM25-rank
+            chunks against this query; response gains a `passages` array, most
+            relevant first. The article cache is focus-independent.
+        - in: query
+          name: passages_only
+          schema: { type: boolean, default: false }
+          description: With focus — omit full content fields from the result; maximum token saving.
+        - in: query
+          name: top_passages
+          schema: { type: integer, minimum: 1, default: 5 }
+          description: With focus — number of passages to return.
+      responses:
+        '200':
+          description: Extracted article.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ExtractResponse' }
+        '400': { $ref: '#/components/responses/Error' }
+        '413': { $ref: '#/components/responses/Error' }
+        '415': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+        '451': { $ref: '#/components/responses/Error' }
+        '502': { $ref: '#/components/responses/Error' }
+        '504': { $ref: '#/components/responses/Error' }
+
+  /blocklist/reload:
+    post:
+      summary: Force-refresh blocklists from upstream sources.
+      responses:
+        '200':
+          description: Reload status.
+
+  /mcp:
+    post:
+      summary: Model Context Protocol streamable-HTTP transport.
+      description: |
+        Opaque JSON-RPC 2.0 endpoint for MCP clients. Use:
+
+        ```bash
+        claude mcp add --transport http kurai \
+          http://kurai.orb.local:8080/mcp \
+          --header "Authorization: Bearer $KURAI_KEY"
+        ```
+
+        See https://modelcontextprotocol.io/specification/2025-11-25 for the
+        wire protocol. Tools exposed: `web_search`, `news_search`,
+        `image_search`, `extract_content`.
+      requestBody:
+        required: true
+        content:
+          application/json: {}
+      responses:
+        '200': { description: JSON-RPC response (or SSE stream). }
+        '202': { description: Accepted (notifications). }
+
+  /openapi.json:
+    get:
+      summary: This OpenAPI spec, JSON encoded.
+      security: []
+      responses:
+        '200':
+          description: OpenAPI 3.1 document.
+          content:
+            application/json: {}
+
+  /openapi.yaml:
+    get:
+      summary: This OpenAPI spec, YAML encoded.
+      security: []
+      responses:
+        '200':
+          description: OpenAPI 3.1 document.
+          content:
+            application/yaml: {}

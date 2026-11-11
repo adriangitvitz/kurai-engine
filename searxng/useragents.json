@@ -1,0 +1,29 @@
+{
+    "browsers": {
+        "chrome": {
+            "ua": "Mozilla/5.0 ({os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{version} Safari/537.36",
+            "versions": ["131.0.0.0", "130.0.0.0", "129.0.0.0", "128.0.0.0", "127.0.0.0", "126.0.0.0", "124.0.0.0", "123.0.0.0", "120.0.0.0"]
+        },
+        "firefox": {
+            "ua": "Mozilla/5.0 ({os}; rv:{version}) Gecko/20100101 Firefox/{version}",
+            "versions": ["135.0", "133.0", "128.0", "117.0", "109.0"]
+        },
+        "safari": {
+            "ua": "Mozilla/5.0 ({os}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/{version} Safari/605.1.15",
+            "versions": ["18.2", "18.0", "17.5", "17.4.1", "17.2.1", "17.0", "16.5", "16.0"]
+        },
+        "edge": {
+            "ua": "Mozilla/5.0 ({os}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36 Edg/{version}",
+            "versions": ["131.0.0.0", "127.0.0.0", "122.0.0.0"]
+        }
+    },
+    "os": {
+        "windows": "Windows NT 10.0; Win64; x64",
+        "linux": "X11; Linux x86_64",
+        "macos_intel": "Macintosh; Intel Mac OS X 10_15_7",
+        "macos_arm": "Macintosh; Apple M1; Mac OS X 14_0"
+    },
+    "_comment": "Legacy format fields below for backward compatibility",
+    "ua": "Mozilla/5.0 ({os}; rv:{version}) Gecko/20100101 Firefox/{version}",
+    "versions": ["146.0", "145.0"]
+}
